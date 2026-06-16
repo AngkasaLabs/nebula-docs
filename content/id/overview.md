@@ -9,7 +9,7 @@ NebulaCMS adalah sistem manajemen konten open source yang dibangun dengan **Lara
 1. **Panel admin** (`/admin/*`) — UI bergaya SPA dengan Inertia, Radix/Shadcn, dan Tailwind. Pengguna terautentikasi dapat mengelola post, page, media, user, role, theme, plugin, menu, dan settings.
 2. **Frontend publik** — Dirender oleh **tema aktif** di `themes/{folder}/views`. View menggunakan namespace `theme::` yang diregistrasi di `App\Providers\ThemeServiceProvider`.
 3. **Hooks** — **actions** dan **filters** melalui `HookService` agar tema/plugin dapat memperluas perilaku tanpa memodifikasi core.
-4. **Plugin** — Paket PHP di `plugins/{slug}/` dengan manifest `plugin.json` dan entry file (misalnya `index.php`).
+4. **Plugin** — Paket PHP di `plugins/{slug}/` dengan manifest `plugin.json`, entry file (misalnya `index.php`), dan mulai **v1.7.0** dapat membawa bundle admin Inertia prebuilt sendiri untuk shared hosting.
 
 ## Alur permintaan tingkat tinggi
 
@@ -48,4 +48,5 @@ flowchart LR
 - [Instalasi](installation.md)
 - [Dasar-dasar admin](admin-basics.md)
 - [Referensi admin](admin-reference.md)
+- [Pengembangan plugin](plugin-development.md)
 - [Sistem tema](theme-system.md)

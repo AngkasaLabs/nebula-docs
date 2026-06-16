@@ -9,7 +9,7 @@ NebulaCMS is an open-source content management system built with **Laravel 12**,
 1. **Admin panel** (`/admin/*`) — SPA-style UI with Inertia, Radix/Shadcn, Tailwind. Authenticated users manage posts, pages, media, users, roles, themes, plugins, menus, and settings.
 2. **Public frontend** — Rendered with the **active theme** under `themes/{folder}/views`. Views use the `theme::` namespace registered in `App\Providers\ThemeServiceProvider`.
 3. **Hooks** — **Actions** and **filters** via `HookService` (a conventional hook pattern) so themes and plugins extend behavior without editing core files.
-4. **Plugins** — PHP packages under `plugins/{slug}/` with a `plugin.json` manifest and an entry file (e.g. `index.php`).
+4. **Plugins** — PHP packages under `plugins/{slug}/` with a `plugin.json` manifest, an entry file (e.g. `index.php`), and since **v1.7.0** optional pre-built Inertia admin bundles for shared-hosting-friendly delivery.
 
 ## High-level request flow
 
@@ -48,4 +48,5 @@ flowchart LR
 - [Installation](installation.md)
 - [Admin basics](admin-basics.md)
 - [Admin reference](admin-reference.md)
+- [Plugin development](plugin-development.md)
 - [Theme system](theme-system.md)

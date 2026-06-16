@@ -141,22 +141,56 @@ Field yang didukung:
 - `items` opsional untuk submenu
 - `match_paths` opsional untuk membantu status aktif sidebar pada route kustom
 
-### Halaman Inertia milik plugin
+### Halaman admin Inertia prebuilt
 
-Plugin kini dapat menyimpan halaman admin React/TSX di dalam folder plugin sendiri, jadi tidak perlu menaruh page kustom di `resources/js/pages` milik core.
+Mulai **v1.7.0**, plugin admin berbasis React/Inertia **tidak lagi mengandalkan build Vite global milik core**. Sebagai gantinya, plugin harus membawa **bundle frontend prebuilt** miliknya sendiri agar tetap kompatibel dengan **shared hosting** dan proses upload ZIP tanpa SSH.
 
 Struktur yang direkomendasikan:
 
 ```text
 plugins/
   └── your-plugin/
-      └── resources/
-          └── js/
-              └── pages/
-                  └── Plugins/
-                      └── YourPlugin/
-                          └── Admin/
-                              └── Dashboard.tsx
+      ├── plugin.json
+      ├── index.php
+      ├── routes.php
+      ├── resources/
+      │   └── js/
+      │       ├── plugin-app.tsx
+      │       └── pages/
+      │           └── Plugins/
+      │               └── YourPlugin/
+      │                   └── Admin/
+      │                       └── Dashboard.tsx
+      ├── vite.prebuilt.config.ts
+      └── dist/
+          ├── manifest.json
+          └── assets/
+              └── *.js
+```
+
+Contoh blok `frontend` di `plugin.json`:
+
+```json
+{
+  "frontend": {
+    "type": "inertia-prebuilt",
+    "manifest": "dist/manifest.json",
+    "entrypoints": {
+      "Plugins/YourPlugin/Admin/Dashboard": "resources/js/plugin-app.tsx"
+    }
+  }
+}
+```
+
+`plugin-app.tsx` bertugas mendaftarkan page React ke runtime host Nebula:
+
+```ts
+import Dashboard from './pages/Plugins/YourPlugin/Admin/Dashboard';
+
+window.NebulaCMS?.registerInertiaPage(
+  'Plugins/YourPlugin/Admin/Dashboard',
+  Dashboard,
+);
 ```
 
 Lalu render dari controller/plugin:
@@ -165,11 +199,13 @@ Lalu render dari controller/plugin:
 return Inertia::render('Plugins/YourPlugin/Admin/Dashboard');
 ```
 
-Catatan:
+Catatan penting:
 
-- resolver Inertia Nebula akan mencari page di core dan juga di `plugins/*/resources/js/pages`
+- **sertakan folder `dist/` dalam ZIP plugin production**
+- `dist/manifest.json` wajib ada untuk plugin dengan `frontend.type = inertia-prebuilt`
+- asset plugin akan disajikan lewat route frontend Nebula, jadi user shared hosting **tidak perlu menjalankan `npm run build` di server**
 - gunakan namespace page yang unik agar tidak bentrok dengan plugin lain
-- pendekatan ini menjaga boundary antara core Nebula dan UI milik plugin eksternal
+- lihat **`plugins/starter-inertia-prebuilt/`** sebagai referensi resmi
 
 ### Hook baru untuk plugin
 

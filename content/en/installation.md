@@ -53,6 +53,7 @@ You do **not** need to type shell commands for this flow. The installer writes c
 - Sign in at **`/admin`** (see [Admin basics](admin-basics.md)).
 - **Scheduled posts** in production still need the server **cron** to run Laravel’s scheduler — see [Operations](operations.md). That step often uses a one-line entry in the hosting panel (“Cron jobs”) rather than a full terminal.
 - If **media uploads** fail with missing storage URLs, your host may need the **`public/storage`** symlink. Some panels offer a “run artisan” tool; otherwise ask support to run `php artisan storage:link` once, or use SSH if available.
+- Starting with **v1.7.0**, React/Inertia admin plugins that ship their own `dist/` bundle can be uploaded on shared hosting **without rebuilding frontend assets on the server**. Production plugin ZIPs should include `dist/manifest.json` and their compiled asset files.
 
 ### Updates and ongoing maintenance
 

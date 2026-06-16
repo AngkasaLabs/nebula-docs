@@ -137,35 +137,71 @@ Supported fields:
 - `items` is optional for submenus
 - `match_paths` is optional and helps the sidebar stay active on custom route trees
 
-### Plugin-owned Inertia pages
+### Pre-built Inertia admin pages
 
-Plugins can now keep their React/TSX admin pages inside the plugin folder instead of placing custom pages under the core `resources/js/pages` directory.
+Starting with **v1.7.0**, React/Inertia admin plugins no longer depend on the core app's global Vite build. Instead, plugins should ship their own **pre-built frontend bundle** so they work on **shared hosting** and ZIP uploads without SSH access.
 
 Recommended structure:
 
 ```text
 plugins/
   └── your-plugin/
-      └── resources/
-          └── js/
-              └── pages/
-                  └── Plugins/
-                      └── YourPlugin/
-                          └── Admin/
-                              └── Dashboard.tsx
+      ├── plugin.json
+      ├── index.php
+      ├── routes.php
+      ├── resources/
+      │   └── js/
+      │       ├── plugin-app.tsx
+      │       └── pages/
+      │           └── Plugins/
+      │               └── YourPlugin/
+      │                   └── Admin/
+      │                       └── Dashboard.tsx
+      ├── vite.prebuilt.config.ts
+      └── dist/
+          ├── manifest.json
+          └── assets/
+              └── *.js
 ```
 
-Then render it from the plugin/controller:
+Example `frontend` block in `plugin.json`:
+
+```json
+{
+  "frontend": {
+    "type": "inertia-prebuilt",
+    "manifest": "dist/manifest.json",
+    "entrypoints": {
+      "Plugins/YourPlugin/Admin/Dashboard": "resources/js/plugin-app.tsx"
+    }
+  }
+}
+```
+
+`plugin-app.tsx` should register the React page with the Nebula runtime host:
+
+```ts
+import Dashboard from './pages/Plugins/YourPlugin/Admin/Dashboard';
+
+window.NebulaCMS?.registerInertiaPage(
+  'Plugins/YourPlugin/Admin/Dashboard',
+  Dashboard,
+);
+```
+
+Then render it from the controller/plugin:
 
 ```php
 return Inertia::render('Plugins/YourPlugin/Admin/Dashboard');
 ```
 
-Notes:
+Important notes:
 
-- the Nebula Inertia resolver now scans both the core pages and `plugins/*/resources/js/pages`
-- use a unique page namespace to avoid collisions with other plugins
-- this keeps a clean boundary between the Nebula core and external plugin UI
+- include the `dist/` directory in production plugin ZIP packages
+- `dist/manifest.json` is required for plugins with `frontend.type = inertia-prebuilt`
+- plugin assets are served through a Nebula frontend asset route, so shared-hosting users do **not** need to run `npm run build` on the server
+- use unique page namespaces to avoid collisions with other plugins
+- study **`plugins/starter-inertia-prebuilt/`** as the official reference implementation
 
 ### New plugin hooks
 

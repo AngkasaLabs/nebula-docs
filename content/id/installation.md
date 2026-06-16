@@ -51,6 +51,7 @@ Anda **tidak perlu** mengedit `.env` secara manual; installer akan mengonfiguras
 - Masuk ke **`/admin`** (lihat [Dasar-dasar admin](admin-basics.md)).
 - Atur **cron job** untuk scheduler Laravel (lihat [Operasional](operations.md)).
 - Buat symlink storage jika pengunggahan gagal (jalankan `php artisan storage:link`).
+- Mulai **v1.7.0**, plugin admin React/Inertia yang membawa folder `dist/` sendiri dapat di-upload di shared hosting **tanpa build frontend ulang di server**. Pastikan paket plugin menyertakan `dist/manifest.json` dan asset hasil build.
 
 ---
 
