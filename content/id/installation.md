@@ -36,13 +36,13 @@ Laravel menyajikan aplikasi dari direktori **`public`**. Di panel hosting:
 
 ### 4. Buat database
 
-Buat database **MySQL** dan berikan akses ke pengguna. Catat **host**, **nama database**, **nama pengguna**, dan **kata sandi**.
+Buat database **MySQL/MariaDB** atau **PostgreSQL** dan berikan akses ke pengguna. Catat **host**, **nama database**, **nama pengguna**, dan **kata sandi** — semuanya dimasukkan di installer, tempat Anda juga memilih mesin database. Installer **tidak** membuat database atau pengguna secara otomatis, jadi buat dulu di panel hosting.
 
 ### 5. Jalankan web installer
 
 1. Buka situs Anda di browser (mis. `https://example.com`).
 2. Jika NebulaCMS belum terinstal, Anda akan dialihkan ke **`/install`**.
-3. Ikuti langkah di layar: pemeriksaan, database, pengaturan situs, akun admin.
+3. Ikuti langkah di layar: pemeriksaan, database (pilih MySQL/MariaDB atau PostgreSQL lalu masukkan kredensial), pengaturan situs, akun admin.
 
 Anda **tidak perlu** mengedit `.env` secara manual; installer akan mengonfigurasikannya.
 
@@ -64,7 +64,7 @@ Bagian ini ditujukan untuk pengembang yang ingin berkontribusi langsung pada kod
 - **PHP** 8.3+
 - **Composer** 2.x
 - **Node.js** 20+
-- **Database**: MySQL 8+ / PostgreSQL
+- **Database**: MySQL 8+ / MariaDB 10.6+ / PostgreSQL 13+ (butuh ekstensi `pdo_mysql` atau `pdo_pgsql`).
 
 ### Clone dan instal
 

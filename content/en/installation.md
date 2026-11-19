@@ -38,13 +38,13 @@ If the document root cannot be changed, you may need help from someone with serv
 
 ### 4. Create a database
 
-In the hosting panel, create a **MySQL** database and a user with full access to it. Note the **host**, **database name**, **username**, and **password** — you will enter them in the installer.
+In the hosting panel, create a **MySQL/MariaDB** or **PostgreSQL** database and a user with full access to it. Note the **host**, **database name**, **username**, and **password** — you will enter them in the installer, where you also choose the database engine. The installer does **not** create the database or user for you, so create them first.
 
 ### 5. Run the web installer (no terminal)
 
 1. Open your site in the browser (e.g. `https://example.com`).
 2. If NebulaCMS is not installed yet, you should be redirected to the **installer** at **`/install`**.
-3. Follow the steps on screen: **requirements**, **database**, **site settings**, **admin account**.
+3. Follow the steps on screen: **requirements**, **database** (pick MySQL/MariaDB or PostgreSQL, then enter your credentials), **site settings**, **admin account**.
 
 You do **not** need to type shell commands for this flow. The installer writes configuration, runs migrations, and creates your first user. You also **do not** need to copy `.env.example` to `.env` by hand before opening `/install` — the wizard creates `.env` from `.env.example` when it applies your settings.
 
@@ -71,10 +71,10 @@ Use this when you contribute to the codebase, run tests, or want the latest unre
 
 ### Requirements
 
-- **PHP** 8.3 or newer with extensions typical for Laravel (mbstring, openssl, pdo, tokenizer, xml, ctype, json, fileinfo; BCMath recommended).
+- **PHP** 8.3 or newer with extensions typical for Laravel (mbstring, openssl, pdo, tokenizer, xml, ctype, json, fileinfo; BCMath recommended), plus **`pdo_mysql`** or **`pdo_pgsql`** for your database engine.
 - **Composer** 2.x
 - **Node.js** 20+ and **npm** (or pnpm/yarn if you adapt scripts)
-- **Database**: MySQL 8+ or PostgreSQL
+- **Database**: MySQL 8+, MariaDB 10.6+, or PostgreSQL 13+
 - **Web server**: PHP-FPM + Nginx/Apache, or `php artisan serve` for local development
 
 ### Clone and install dependencies
