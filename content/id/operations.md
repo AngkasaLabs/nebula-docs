@@ -36,6 +36,7 @@ Gunakan `supervisor` (atau process manager setara) untuk worker queue jangka pan
 
 - **Database:** lakukan dump berkala.
 - **Files:** backup `storage/app/public` (lokasi unggahan).
+- **Backup pra-update:** pembaruan dari admin menyimpan arsip di `storage/app/backups` dan menyimpan 5 arsip terbaru secara default. Ubah batasnya lewat `NEBULA_BACKUP_RETENTION`, atau hapus arsip lama dari **Settings → System Update**.
 
 ## HTTPS
 

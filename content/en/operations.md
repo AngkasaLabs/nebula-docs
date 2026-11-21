@@ -40,6 +40,7 @@ If you offload work to queues, run workers under **supervisor** or a managed wor
 
 - **Database:** regular dumps (mysqldump, pg_dump, or managed backups).
 - **Files:** `storage/app` (uploads) and `public/storage` symlink target; if using S3, rely on bucket policies and versioning.
+- **Pre-update backups:** the in-admin updater stores archives in `storage/app/backups` and keeps the newest 5 by default. Change the limit with `NEBULA_BACKUP_RETENTION`, or delete old archives from **Settings → System Update**.
 
 ## HTTPS
 
