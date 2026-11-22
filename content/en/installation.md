@@ -17,7 +17,7 @@ This is the **simplest path** for people who only want to **run NebulaCMS**, not
 
 ### 1. Download
 
-- Open the **[Download](/download)** page on this site. It links to the **same ZIP file** as the latest **[GitHub Release](https://github.com/AngkasaLabs/NebulaCMS/releases)** (built in CI with dependencies and a production asset build).
+- Open the **[Download](/download)** page on this site. It links to the **same ZIP file** as the latest **[GitHub Release](https://github.com/AngkasaLabs/nebula-cms/releases)** (built in CI with dependencies and a production asset build).
 - Save the **`nebulacms-vX.Y.Z.zip`** archive (for example `nebulacms-v1.0.1.zip`).
 
 ### 2. Upload and extract on your host
@@ -80,7 +80,7 @@ Use this when you contribute to the codebase, run tests, or want the latest unre
 ### Clone and install dependencies
 
 ```bash
-git clone https://github.com/AngkasaLabs/NebulaCMS nebulacms
+git clone https://github.com/AngkasaLabs/nebula-cms nebulacms
 cd nebulacms
 composer install
 npm install

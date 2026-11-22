@@ -28,7 +28,7 @@ Pastikan route pratinjau draft dilindungi middleware yang sesuai agar konten non
 Jika menemukan celah keamanan, kirim laporan ke **security@angkasalabs.com** dan jangan publikasikan detail eksploit di issue publik.
 
 Panduan resmi tersedia di:
-[`SECURITY.md`](https://github.com/AngkasaLabs/NebulaCMS/blob/main/SECURITY.md)
+[`SECURITY.md`](https://github.com/AngkasaLabs/nebula-cms/blob/main/SECURITY.md)
 
 ## Lihat juga
 

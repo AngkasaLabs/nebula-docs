@@ -37,7 +37,7 @@ Send details to **security@angkasalabs.com**. Include:
 
 The maintainers aim to acknowledge reports within **24 hours**, verify impact, ship fixes, and credit reporters when desired. Supported release line: **1.x**.
 
-The same policy is maintained in the repository as [`SECURITY.md`](https://github.com/AngkasaLabs/NebulaCMS/blob/main/SECURITY.md) on GitHub.
+The same policy is maintained in the repository as [`SECURITY.md`](https://github.com/AngkasaLabs/nebula-cms/blob/main/SECURITY.md) on GitHub.
 
 ## See also
 

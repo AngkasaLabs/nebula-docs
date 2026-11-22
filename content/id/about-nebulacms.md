@@ -21,7 +21,7 @@ Kontribusi terjemahan dan perbaikan dokumentasi sangat diapresiasi.
 
 ## Arah pengembangan
 
-Roadmap dan release notes dipublikasikan di [repositori GitHub NebulaCMS](https://github.com/AngkasaLabs/NebulaCMS). Bagian ini adalah rujukan terbaik untuk memantau perkembangan fitur dan rencana rilis.
+Roadmap dan release notes dipublikasikan di [repositori GitHub NebulaCMS](https://github.com/AngkasaLabs/nebula-cms). Bagian ini adalah rujukan terbaik untuk memantau perkembangan fitur dan rencana rilis.
 
 ## Lihat juga
 

@@ -17,7 +17,7 @@ Ini adalah **jalur termudah** untuk menjalankan NebulaCMS tanpa proses build man
 
 ### 1. Unduh
 
-- Buka halaman **[Download](/download)** di situs ini. Tautan ini mengarah ke **file ZIP yang sama** dengan **[Rilis GitHub](https://github.com/AngkasaLabs/NebulaCMS/releases)** terbaru.
+- Buka halaman **[Download](/download)** di situs ini. Tautan ini mengarah ke **file ZIP yang sama** dengan **[Rilis GitHub](https://github.com/AngkasaLabs/nebula-cms/releases)** terbaru.
 - Simpan arsip **`nebulacms-vX.Y.Z.zip`** (contoh: `nebulacms-v1.0.1.zip`).
 
 ### 2. Unggah dan ekstrak di hosting
@@ -69,7 +69,7 @@ Bagian ini ditujukan untuk pengembang yang ingin berkontribusi langsung pada kod
 ### Clone dan instal
 
 ```bash
-git clone https://github.com/AngkasaLabs/NebulaCMS nebulacms
+git clone https://github.com/AngkasaLabs/nebula-cms nebulacms
 cd nebulacms
 composer install
 npm install

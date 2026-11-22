@@ -21,7 +21,7 @@ Contributions and translations are welcome as the localization structure matures
 
 ## History and direction
 
-The project has evolved with its contributors and users. Roadmaps and release notes on the **[GitHub repository](https://github.com/AngkasaLabs/NebulaCMS)** are the best place to follow **what ships when** and how to get involved.
+The project has evolved with its contributors and users. Roadmaps and release notes on the **[GitHub repository](https://github.com/AngkasaLabs/nebula-cms)** are the best place to follow **what ships when** and how to get involved.
 
 ## See also
 
