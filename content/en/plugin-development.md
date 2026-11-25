@@ -230,12 +230,13 @@ php tools/nebula-pack.php verify dist/my-plugin-1.0.0.zip dist/my-plugin-1.0.0.s
 The CMS only trusts keys listed in `nebula.package_signing_keys`. The default is the official NebulaCMS key, so to install your own builds you must add your key **without removing the official one**:
 
 ```dotenv
-NEBULA_PACKAGE_SIGNING_KEYS='{"official":"34BVMN/vudFGIXCtDE7HCfmt7LpTeFQZCcLVtC+qb2w=","local":"<your public key>"}'
+NEBULA_PACKAGE_SIGNING_KEYS='{"official":"<official public key from config/nebula.php>","local":"<your public key>"}'
 ```
 
 Notes:
 
 - `NEBULA_PACKAGE_SIGNING_KEYS` replaces the whole key map — keep `official` in the JSON or marketplace installs stop working.
+- **Do not copy the public key value from the documentation.** Take the `official` key already present in your instance's `config/nebula.php`, because the value changes when the key rotates.
 - The signature binds slug, type, version, size and SHA-256, so a package cannot be modified after signing or installed under another name or type.
 - There is no bypass switch. Unsigned packages from third parties are rejected by design.
 

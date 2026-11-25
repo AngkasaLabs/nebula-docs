@@ -231,15 +231,16 @@ php tools/nebula-pack.php verify dist/my-plugin-1.0.0.zip dist/my-plugin-1.0.0.s
 
 `pack` menghasilkan `my-plugin-1.0.0.zip` dan `my-plugin-1.0.0.sig.json`; unggah keduanya. `keygen` mencetak public key untuk `config/nebula.php`.
 
-CMS hanya memercayai key yang terdaftar di `nebula.package_signing_keys`. Defaultnya adalah key resmi NebulaCMS, jadi agar build sendiri bisa dipasang, tambahkan key Anda **tanpa menghapus key resmi**:
+CMS hanya memercayai key yang terdaftar di `nebula.package_signing_keys`. Default-nya hanya key resmi NebulaCMS, jadi agar build sendiri bisa dipasang, tambahkan public key Anda **tanpa menghapus key resmi**:
 
 ```dotenv
-NEBULA_PACKAGE_SIGNING_KEYS='{"official":"34BVMN/vudFGIXCtDE7HCfmt7LpTeFQZCcLVtC+qb2w=","local":"<public key Anda>"}'
+NEBULA_PACKAGE_SIGNING_KEYS='{"official":"<public key resmi dari config/nebula.php>","local":"<public key Anda>"}'
 ```
 
 Catatan:
 
 - `NEBULA_PACKAGE_SIGNING_KEYS` menggantikan seluruh map key — sertakan `official` di JSON, kalau tidak instalasi dari marketplace akan gagal.
+- **Jangan menyalin nilai public key dari dokumentasi.** Ambil key `official` yang sudah ada di `config/nebula.php` pada instalasi Anda, karena nilainya bisa berubah saat rotasi key.
 - Signature mengikat slug, type, version, size, dan SHA-256, sehingga paket tidak bisa diubah setelah signing atau dipasang dengan nama/tipe lain.
 - Tidak ada tombol bypass. Paket tanpa signature dari pihak ketiga ditolak by design.
 
