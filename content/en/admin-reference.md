@@ -52,11 +52,13 @@ Assign roles to control access. Permissions are managed via Spatie Permission; s
 ## Themes
 
 - **Routes:** `admin.themes.index`, `admin.themes.activate`, `admin.themes.scan`, `admin.themes.destroy`, `admin.themes.upload`
-- Scan the filesystem for themes, activate one, upload ZIP if supported, remove unused themes (with care).
+- Scan the filesystem for themes, activate one, remove unused themes (with care).
+- **Upload requires a signed package:** send the ZIP together with its `.sig.json`. Unsigned or modified archives are rejected before anything is written to disk. See [Packaging and signing](plugin-development.md#packaging-and-signing).
 
 ## Plugins
 
 - **Routes:** `admin.plugins.index`, `admin.plugins.activate`, `admin.plugins.deactivate`, `admin.plugins.scan`, `admin.plugins.destroy`, `admin.plugins.upload`
+- **Upload requires a signed package:** send the ZIP together with its `.sig.json` (same rule as themes).
 
 ## Menus
 

@@ -210,6 +210,35 @@ In addition to manifest-based configuration, NebulaCMS now exposes these extensi
 - `plugin.route_config` (filter) to modify the plugin route group before registration
 - `admin.navigation` (filter) to append or transform admin sidebar items shared through Inertia
 
+## Packaging and signing
+
+Admin uploads (**Plugins → Upload Plugin**, **Themes → Upload Theme**) only accept signed packages. A ZIP alone is rejected: the form requires the matching `.sig.json` produced by the packaging tool, and the CMS verifies the Ed25519 signature and the archive SHA-256 before anything is written to disk.
+
+Package your plugin from the workspace with:
+
+```bash
+# once per machine: create a signing key (private key stays in ~/.nebula/keys)
+php tools/nebula-pack.php keygen local
+
+# bump version in plugin.json first, then build + sign
+php tools/nebula-pack.php pack plugins/my-plugin --out=dist
+php tools/nebula-pack.php verify dist/my-plugin-1.0.0.zip dist/my-plugin-1.0.0.sig.json --public-key=BASE64
+```
+
+`pack` writes `my-plugin-1.0.0.zip` and `my-plugin-1.0.0.sig.json`; upload both files. `keygen` prints the public key for `config/nebula.php`.
+
+The CMS only trusts keys listed in `nebula.package_signing_keys`. The default is the official NebulaCMS key, so to install your own builds you must add your key **without removing the official one**:
+
+```dotenv
+NEBULA_PACKAGE_SIGNING_KEYS='{"official":"34BVMN/vudFGIXCtDE7HCfmt7LpTeFQZCcLVtC+qb2w=","local":"<your public key>"}'
+```
+
+Notes:
+
+- `NEBULA_PACKAGE_SIGNING_KEYS` replaces the whole key map — keep `official` in the JSON or marketplace installs stop working.
+- The signature binds slug, type, version, size and SHA-256, so a package cannot be modified after signing or installed under another name or type.
+- There is no bypass switch. Unsigned packages from third parties are rejected by design.
+
 ## See also
 
 - [Hooks and filters](hooks-and-filters.md)

@@ -52,11 +52,13 @@ Gunakan role untuk mengatur akses staf. Permission dikelola oleh Spatie Laravel 
 ## Themes
 
 - **Routes:** `admin.themes.index`, `admin.themes.activate`, `admin.themes.scan`, `admin.themes.destroy`, `admin.themes.upload`
-- Untuk scan tema dari filesystem, aktivasi tema, upload ZIP (jika didukung), dan hapus tema yang tidak dipakai.
+- Untuk scan tema dari filesystem, aktivasi tema, dan hapus tema yang tidak dipakai.
+- **Upload wajib paket bertanda tangan:** kirim ZIP bersama `.sig.json`-nya. Arsip tanpa signature atau yang diubah setelah signing ditolak sebelum ada file yang ditulis ke disk. Lihat [Packaging dan signing](plugin-development.md#packaging-dan-signing).
 
 ## Plugins
 
 - **Routes:** `admin.plugins.index`, `admin.plugins.activate`, `admin.plugins.deactivate`, `admin.plugins.scan`, `admin.plugins.destroy`, `admin.plugins.upload`
+- **Upload wajib paket bertanda tangan:** kirim ZIP bersama `.sig.json`-nya (aturan sama dengan tema).
 
 ## Menus
 
