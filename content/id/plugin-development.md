@@ -135,11 +135,47 @@ Plugin kini dapat menambahkan item ke sidebar admin melalui `plugin.json` tanpa 
 Field yang didukung:
 
 - `title` dan `href` wajib
-- `group` opsional: `main`, `content`, atau `admin` (default `admin`)
-- `icon` opsional, saat ini mendukung nama ikon sidebar core seperti `ScrollText`, `FileText`, `Settings`, `Puzzle`, `Users`, `Shield`, `Image`, `Paintbrush`, `AlignJustify`, `File`, dan `LayoutGrid`
+- `group` memilih section sidebar (lihat tabel); nilai tak dikenal otomatis masuk `extensions`
+- `icon` opsional; gunakan salah satu nama di bawah, kalau tidak sidebar memakai `Puzzle`
 - `badge` opsional (`true` / string)
-- `items` opsional untuk submenu
+- `items` opsional untuk submenu (satu level)
 - `match_paths` opsional untuk membantu status aktif sidebar pada route kustom
+- `order` opsional (integer, default `100`); nilai kecil tampil lebih dulu di dalam section
+- `permission` opsional; item hanya dibagikan ke user yang punya permission tersebut
+
+Section dimiliki oleh core supaya sidebar tetap rapi saat plugin bertambah:
+
+| `group` | Tampil sebagai |
+| --- | --- |
+| `main` | paling atas, tanpa label — untuk menu utama plugin |
+| `content` | **Content Management** |
+| `commerce` | **Commerce** |
+| `tools` | **Tools** |
+| `system` | **System** |
+| `extensions` | **Extensions** — fallback untuk group tak dikenal/kosong; otomatis dilipat jadi satu item kalau isinya lebih dari enam link datar |
+
+Group lama `admin` diperlakukan sebagai `extensions`.
+
+Nama ikon yang didukung:
+
+`AlignJustify`, `BarChart3`, `BookOpen`, `Boxes`, `Calendar`, `Code`, `CreditCard`, `Database`, `Download`, `File`, `FileText`, `Flag`, `Folder`, `Globe`, `Image`, `Languages`, `LayoutGrid`, `LifeBuoy`, `Mail`, `Megaphone`, `MessageSquare`, `Package`, `Paintbrush`, `Puzzle`, `Receipt`, `Route`, `ScrollText`, `Settings`, `Shield`, `ShoppingCart`, `Store`, `Tag`, `Ticket`, `Truck`, `Users`, `Wrench`, `Zap`
+
+Admin → Plugins menampilkan warning kalau manifest memakai group atau ikon yang tidak dikenal, jadi salah tulis tidak gagal diam-diam.
+
+Sebaiknya gunakan satu parent dengan children, bukan beberapa item datar:
+
+```json
+{
+  "title": "Commerce",
+  "href": "/admin/commerce",
+  "group": "commerce",
+  "icon": "ShoppingCart",
+  "items": [
+    { "title": "Shipping", "href": "/admin/commerce/shipping" },
+    { "title": "Vouchers", "href": "/admin/commerce/vouchers" }
+  ]
+}
+```
 
 ### Halaman admin Inertia prebuilt
 

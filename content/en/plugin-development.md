@@ -131,11 +131,47 @@ Plugins can now register admin sidebar items directly from `plugin.json` without
 Supported fields:
 
 - `title` and `href` are required
-- `group` is optional: `main`, `content`, or `admin` (defaults to `admin`)
-- `icon` is optional; currently it supports the core sidebar icon names such as `ScrollText`, `FileText`, `Settings`, `Puzzle`, `Users`, `Shield`, `Image`, `Paintbrush`, `AlignJustify`, `File`, and `LayoutGrid`
+- `group` selects the sidebar section (see below); unknown values fall back to `extensions`
+- `icon` is optional; use one of the names listed below, otherwise the sidebar shows `Puzzle`
 - `badge` is optional (`true` or a string)
-- `items` is optional for submenus
+- `items` is optional for submenus (one level)
 - `match_paths` is optional and helps the sidebar stay active on custom route trees
+- `order` is optional (integer, default `100`); lower values come first inside the section
+- `permission` is optional; the item is only shared with users who have that permission
+
+Sections are owned by the core so the sidebar stays predictable as plugins are installed:
+
+| `group` | Rendered as |
+| --- | --- |
+| `main` | top of the sidebar, no label — for a plugin's primary entry point |
+| `content` | **Content Management** |
+| `commerce` | **Commerce** |
+| `tools` | **Tools** |
+| `system` | **System** |
+| `extensions` | **Extensions** — fallback for unknown or missing groups; collapses into one item when it holds more than six flat links |
+
+The legacy `admin` group is treated as `extensions`.
+
+Supported icon names:
+
+`AlignJustify`, `BarChart3`, `BookOpen`, `Boxes`, `Calendar`, `Code`, `CreditCard`, `Database`, `Download`, `File`, `FileText`, `Flag`, `Folder`, `Globe`, `Image`, `Languages`, `LayoutGrid`, `LifeBuoy`, `Mail`, `Megaphone`, `MessageSquare`, `Package`, `Paintbrush`, `Puzzle`, `Receipt`, `Route`, `ScrollText`, `Settings`, `Shield`, `ShoppingCart`, `Store`, `Tag`, `Ticket`, `Truck`, `Users`, `Wrench`, `Zap`
+
+Admin → Plugins shows a warning when a manifest uses an unknown group or icon, so typos do not fail silently.
+
+Prefer one parent item with children over several flat items:
+
+```json
+{
+  "title": "Commerce",
+  "href": "/admin/commerce",
+  "group": "commerce",
+  "icon": "ShoppingCart",
+  "items": [
+    { "title": "Shipping", "href": "/admin/commerce/shipping" },
+    { "title": "Vouchers", "href": "/admin/commerce/vouchers" }
+  ]
+}
+```
 
 ### Pre-built Inertia admin pages
 
