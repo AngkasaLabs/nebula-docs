@@ -34,8 +34,18 @@ menangani header ini.
 
 HTML editor disanitasi di server sebelum disimpan untuk user tanpa permission
 `unfiltered_html` (default: hanya Admin dan Super Admin). Script, event handler, URL
-`javascript:`, iframe, dan object dibuang; heading, list, tabel, gambar, dan link aman
-dipertahankan. Revisi post disanitasi saat dipulihkan, dan konten lama bisa diaudit dengan:
+`javascript:`, inline style, iframe, dan object dibuang; heading, list, tabel, gambar, dan
+link aman dipertahankan. Revisi post disanitasi saat dipulihkan.
+
+Konten juga disanitasi **saat dirender di situs publik**, sehingga data lama tidak bisa
+menjalankan script walau belum dibersihkan. Untuk membersihkan HTML yang tersimpan, buka
+**Settings → Security → Content HTML safety**:
+
+1. **Scan content** memeriksa hingga 2.000 item dan menampilkan yang akan berubah.
+2. **Sanitise N item(s)** menulis HTML hasil sanitasi. Jalankan scan lagi untuk batch
+   berikutnya pada situs besar.
+
+Audit yang sama tersedia lewat CLI untuk operator:
 
 ```bash
 php artisan content:sanitize            # dry run: laporkan item yang akan berubah

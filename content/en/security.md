@@ -41,9 +41,18 @@ to enforce it once reports are clean, or `SECURITY_HEADERS_ENABLED=false` /
 
 Editor HTML is sanitised on the server before it is stored for any user without the
 `unfiltered_html` permission (Admin and Super Admin hold it by default). Scripts, event
-handlers, `javascript:` URLs, iframes, and objects are removed; headings, lists, tables,
-images, and safe links are kept. Post revisions are sanitised when restored, and existing
-content can be audited with:
+handlers, `javascript:` URLs, inline styles, iframes, and objects are removed; headings,
+lists, tables, images, and safe links are kept. Post revisions are sanitised when restored.
+
+Content is also sanitised **when it is rendered on the public site**, so rows written before
+this policy existed cannot execute scripts even if nobody cleans them first. To clean the
+stored HTML itself, use **Settings → Security → Content HTML safety**:
+
+1. **Scan content** checks up to 2,000 items and lists those that would change.
+2. **Sanitise N item(s)** writes the cleaned HTML back. Run the scan again to continue with
+   the next batch on large sites.
+
+The same audit is available on the command line for operators:
 
 ```bash
 php artisan content:sanitize            # dry run: report items that would change
