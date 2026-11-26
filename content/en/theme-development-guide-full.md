@@ -86,6 +86,27 @@ The `theme.json` file contains theme metadata and configuration. Here's an examp
 }
 ```
 
+### Theme settings in the admin UI
+
+Declare `settings_schema.fields` in `theme.json` and the theme card in **Admin → Themes**
+gets a settings button. Values are stored as JSON on the theme record under `settings`,
+and dotted keys are written as nested arrays:
+
+```json
+{
+    "settings_schema": {
+        "fields": [
+            { "key": "colors.primary", "label": "Primary colour", "type": "color" },
+            { "key": "layout.container_width", "label": "Container width", "type": "text" },
+            { "key": "layout.show_sidebar", "label": "Show sidebar", "type": "boolean" }
+        ]
+    }
+}
+```
+
+Supported field types are `text`, `number`, `boolean` and `color`. Read the values in your
+templates from the theme record, for example `$theme->settings['colors']['primary']`.
+
 ## Creating Functions.php
 
 The `functions.php` file is where you register hooks, filters, menus, sidebars, and theme assets. Here's an example of a `functions.php` file:

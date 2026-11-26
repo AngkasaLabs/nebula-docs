@@ -24,6 +24,27 @@ Sebelum mulai, pastikan:
 3. Anda memahami dasar templating Blade Laravel.
 4. Anda memakai editor kode (misalnya VS Code, Sublime Text, atau PhpStorm).
 
+### Pengaturan tema di admin UI
+
+Definisikan `settings_schema.fields` di `theme.json`, lalu kartu tema di **Admin → Themes**
+akan menampilkan tombol settings. Nilai disimpan sebagai JSON pada record tema di kolom
+`settings`, dan key bertitik ditulis sebagai array bertingkat:
+
+```json
+{
+    "settings_schema": {
+        "fields": [
+            { "key": "colors.primary", "label": "Warna utama", "type": "color" },
+            { "key": "layout.container_width", "label": "Lebar kontainer", "type": "text" },
+            { "key": "layout.show_sidebar", "label": "Tampilkan sidebar", "type": "boolean" }
+        ]
+    }
+}
+```
+
+Tipe field yang didukung: `text`, `number`, `boolean`, dan `color`. Baca nilainya di
+template dari record tema, misalnya `$theme->settings['colors']['primary']`.
+
 ## Membuat struktur tema
 
 Buat struktur direktori tema di folder `themes`:
