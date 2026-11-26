@@ -12,7 +12,17 @@
 | `status` | Umumnya `draft`, `published`, `scheduled` (dapat bertambah sesuai migrasi) |
 | `published_at` | Waktu publikasi (untuk urutan dan scheduling) |
 | `views` | Jumlah tayangan (jika diaktifkan) |
+| `meta_title`, `meta_description` | Override SEO opsional (fallback ke judul dan potongan konten) |
+| `canonical_url` | URL kanonis opsional untuk konten sindikasi |
+| `robots` | Default `index,follow`; mendukung varian `noindex`/`nofollow` |
 | Soft delete | `deleted_at` |
+
+### SEO postingan
+
+Form admin postingan punya panel **SEO** untuk `meta_title`, `meta_description`,
+`canonical_url`, dan `robots`. Tema bawaan merendernya sebagai tag description, robots,
+canonical, plus Open Graph; featured image dipakai sebagai `og:image`. API JSON publik
+mengekspos nilai yang sama di bawah `seo` pada setiap postingan.
 
 ### Author accessor
 

@@ -12,7 +12,17 @@
 | `status` | Typically `draft`, `published`, `scheduled` (and other states if migrations add them) |
 | `published_at` | Used for ordering and scheduled publishing |
 | `views` | View counter (if enabled) |
+| `meta_title`, `meta_description` | Optional SEO overrides (fall back to the title and a content excerpt) |
+| `canonical_url` | Optional canonical URL for syndicated content |
+| `robots` | `index,follow` by default; supports `noindex`/`nofollow` variants |
 | Soft deletes | `deleted_at` |
+
+### Post SEO
+
+The admin post form exposes a **SEO** panel for `meta_title`, `meta_description`,
+`canonical_url` and `robots`. The bundled theme renders them as description, robots and
+canonical tags, plus Open Graph tags; the featured image is used as `og:image`. The public
+JSON API exposes the same values under `seo` on each post.
 
 ### Author accessor
 
