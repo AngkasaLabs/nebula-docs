@@ -19,6 +19,29 @@
 - Gunakan `{!! !!}` hanya untuk konten yang sudah disanitasi.
 - Lindungi route dan filesystem dari serangan path traversal.
 
+## Header keamanan dan CSP
+
+Setiap respons web mengirim `X-Content-Type-Options`, `X-Frame-Options: DENY`,
+`Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, dan HSTS saat
+request HTTPS. Content Security Policy dikirim sebagai **report-only** di 1.13 dengan
+nonce per-request untuk inline script tema dan route Ziggy; browser mengirim laporan ke
+`/csp-report`, yang dibatasi rate dan ukurannya. Set `SECURITY_CSP_REPORT_ONLY=false`
+untuk menegakkannya setelah laporan bersih, atau matikan lewat
+`SECURITY_HEADERS_ENABLED=false` / `SECURITY_CSP_ENABLED=false` jika reverse proxy sudah
+menangani header ini.
+
+## Sanitasi HTML
+
+HTML editor disanitasi di server sebelum disimpan untuk user tanpa permission
+`unfiltered_html` (default: hanya Admin dan Super Admin). Script, event handler, URL
+`javascript:`, iframe, dan object dibuang; heading, list, tabel, gambar, dan link aman
+dipertahankan. Revisi post disanitasi saat dipulihkan, dan konten lama bisa diaudit dengan:
+
+```bash
+php artisan content:sanitize            # dry run: laporkan item yang akan berubah
+php artisan content:sanitize --apply    # tulis HTML hasil sanitasi
+```
+
 ## Akses konten draf
 
 Pastikan route pratinjau draft dilindungi middleware yang sesuai agar konten non-publik tidak terbuka.

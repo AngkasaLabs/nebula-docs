@@ -27,6 +27,29 @@
 - The private signing key stays offline (`~/.nebula/keys`). CI only builds **draft**
   releases; the archive is signed locally and the `.sig.json` is attached before publishing.
 
+## Security headers and CSP
+
+Every web response carries `X-Content-Type-Options`, `X-Frame-Options: DENY`,
+`Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Opener-Policy`, and HSTS when the
+request is HTTPS. A Content Security Policy is sent as **report-only** in 1.13 with a
+per-request nonce for the inline theme bootstrap and Ziggy routes; browsers post violations
+to `/csp-report`, which is throttled and size-capped. Set `SECURITY_CSP_REPORT_ONLY=false`
+to enforce it once reports are clean, or `SECURITY_HEADERS_ENABLED=false` /
+`SECURITY_CSP_ENABLED=false` when a reverse proxy already handles these headers.
+
+## HTML sanitisation
+
+Editor HTML is sanitised on the server before it is stored for any user without the
+`unfiltered_html` permission (Admin and Super Admin hold it by default). Scripts, event
+handlers, `javascript:` URLs, iframes, and objects are removed; headings, lists, tables,
+images, and safe links are kept. Post revisions are sanitised when restored, and existing
+content can be audited with:
+
+```bash
+php artisan content:sanitize            # dry run: report items that would change
+php artisan content:sanitize --apply    # write the sanitised HTML back
+```
+
 ## Static & preview routes
 
 - Static page slugs are constrained by regex.
