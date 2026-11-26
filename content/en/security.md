@@ -17,6 +17,16 @@
 - Validate and sanitize user content in themes; the admin uses structured editors but always escape output in Blade (`{{ }}` vs `{!! !!}`).
 - **Media** and **theme asset** routes validate paths to prevent traversal (see `web.php` theme asset route).
 
+## Supply chain
+
+- **Plugin and theme packages** are signed (Ed25519 + SHA-256) and verified before install,
+  both from the admin upload form and from the marketplace. The signed slug and package
+  type are bound to the archive.
+- **Core release archives** are signed from v1.13.0 and verified by the updater before
+  extraction; unsigned releases at or above that version are rejected.
+- The private signing key stays offline (`~/.nebula/keys`). CI only builds **draft**
+  releases; the archive is signed locally and the `.sig.json` is attached before publishing.
+
 ## Static & preview routes
 
 - Static page slugs are constrained by regex.

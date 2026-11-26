@@ -9,6 +9,22 @@ Keeping NebulaCMS healthy in production is mostly **routine Laravel operations**
 3. **Caches** — After changing config or routes in production, refresh caches (see [Caches](#caches) below) or clear them from **Settings** when the admin offers it.
 4. **Dependencies** — Keep PHP and database versions within the ranges stated in [Installation](installation.md).
 
+### Signed core releases
+
+Starting with **v1.13.0**, core update archives are signed. **Settings → System Update**
+and `php artisan cms:update` verify the `.sig.json` asset with the same Ed25519 key that
+signs plugins and themes, before anything is extracted:
+
+- a release at or above **1.13.0** without a valid signature is rejected;
+- releases older than 1.13.0 stay installable unsigned, so installs running a
+  pre-signing version can update once;
+- verification happens before extraction, and the pre-update backup is created first, so a
+  rejected update leaves the site untouched.
+
+Releases are built by CI as **draft** releases. The archive is signed offline
+(`php tools/nebula-pack.php sign-file <zip> --version=X.Y.Z`) and the `.sig.json` is
+attached before publishing, so the private key never enters CI.
+
 For **scheduled content** and **backups**, use the sections below. If you are still installing or moving hosts, see [Installation](installation.md) first.
 
 ## Task scheduler (scheduled posts)

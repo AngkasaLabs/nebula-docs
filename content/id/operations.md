@@ -9,6 +9,22 @@ Menjaga NebulaCMS tetap andal di produksi pada dasarnya mengikuti **operasi stan
 3. **Cache**: setelah mengubah `config`/`route` di produksi, regenerasi cache.
 4. **Dependensi**: pastikan versi PHP dan database sesuai syarat kompatibilitas.
 
+### Rilis core bertanda tangan
+
+Mulai **v1.13.0**, arsip update core ditandatangani. **Settings → System Update** dan
+`php artisan cms:update` memverifikasi asset `.sig.json` dengan key Ed25519 yang sama
+dengan plugin/tema, sebelum apa pun diekstrak:
+
+- rilis **1.13.0** ke atas tanpa signature valid ditolak;
+- rilis di bawah 1.13.0 tetap bisa dipasang tanpa signature, supaya instalasi versi lama
+  bisa naik sekali;
+- verifikasi terjadi sebelum ekstraksi, dan backup pra-update dibuat lebih dulu, sehingga
+  update yang ditolak tidak mengubah apa pun.
+
+Rilis dibangun CI sebagai **draft release**. Arsip ditandatangani offline
+(`php tools/nebula-pack.php sign-file <zip> --version=X.Y.Z`) dan `.sig.json` dilampirkan
+sebelum dipublikasikan, jadi private key tidak pernah masuk CI.
+
 ## Scheduler (publikasi terjadwal)
 
 NebulaCMS mendaftarkan jadwal tugas di `routes/console.php`:
